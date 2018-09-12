@@ -1,5 +1,6 @@
 import DatabaseConnector
 import NewsNow
+import ThreatPost
 import mysql.connector.errors
 from sys import argv
 
@@ -9,23 +10,28 @@ user = "z5109589"  # Username
 password = "mysqlpass"  # Password
 db = "project"  # Database Name
 
-Database = DatabaseConnector.DatabaseConnector(host, user, password, db).connect()  # Initialise the database connector.
-Scraper = NewsNow.NewsNowScraper(argv[1])  # Initialise the scraper for NewsNow.
+# Initialise the database connector.
+Database = DatabaseConnector.DatabaseConnector(host, user, password, db).connect()
+# Initialise a cursor for interaction with the MYSQL database
+cursor = Database.cursor()
 
-values = Scraper.run()
+# Initialise the scraper for NewsNow.
+NewsNowScraper = NewsNow.NewsNowScraper(argv[1])
+# Initialise the scraper for ThreatPost
+ThreatPostScraper = ThreatPost.ThreatPostScraper(argv[1])
+
+stories = NewsNowScraper.run()
 
 # SQL query used to insert the stories into the database.
 sql_query = "INSERT INTO Scrape_Data (source, content, date_time, link, keywords) " \
             "VALUES (%s, %s, %s, %s, %s)"
 
-# Initialise a cursor for interaction with the MYSQL database
-cursor = Database.cursor()
 total = 0  # total stories added to the database.
 
 # Iterates through the list of stories, processing each story and inserting it into the database.
-for x in values:
+for story in stories:
     try:
-        cursor.execute(sql_query, x)  # Add the story to the database using the query and list of inputs
+        cursor.execute(sql_query, story)  # Add the story to the database using the query and list of inputs
         Database.commit()  # commit the changes to the database.
         total += 1  # increase total stories added to the database.
 
@@ -41,11 +47,11 @@ for x in values:
                      "WHERE content = %s && " \
                      "source = %s && " \
                      "keywords NOT LIKE %s;"
-        update_vals = (x[4], x[1], x[0], like_clause)  # Values to be used in the update statement.
+        update_vals = (story[4], story[1], story[0], like_clause)  # Values to be used in the update statement.
         cursor.execute(sql_update, update_vals)  # Execute the update.
 
 print(total, " entries added to the Database.")  # Print total entries added to the database.
-print(len(values)-total, " duplicate(s) discarded.")  # Prints the total duplicates that have been discarded.
+print(len(stories) - total, " duplicate(s) discarded.")  # Prints the total duplicates that have been discarded.
 
 
 
