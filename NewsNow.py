@@ -35,7 +35,7 @@ class NewsNowScraper:
             # print("Link: ", link)
             # print("Content: ", content)
             values.append((src, content, time, link, self.term))
-        print("Term: ", self.term)
+        print("NewsNow - Term: ", self.term)
         # Print the number of stories found that relate to the keyword.
         print("Results: ", len(headline_results))
         return values
