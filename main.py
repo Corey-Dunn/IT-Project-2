@@ -6,10 +6,10 @@ import time
 import multiprocessing
 
 # inputs - will need to update to pull from configuration file
-host = "seitux2.adfa.unsw.edu.au"  # Database host
-user = "z5109589"  # Username
-password = "mysqlpass"  # Password
-db = "project"  # Database Name
+host = "hidden"  # Database host
+user = "hidden"  # Username
+password = "hidden"  # Password
+db = "hidden"  # Database Name
 
 
 def run(keyword):
