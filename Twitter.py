@@ -9,10 +9,10 @@ from twitter import Twitter, OAuth, TwitterHTTPError, TwitterStream
 # Import 'argv' in order to take keywords from the command line
 from sys import argv
 
-ACCESS_TOKEN = '1036757136150163456-Hkk9KC1HqyYeH7uJSniDNngdRNgKN1'  # Access Token
-ACCESS_SECRET = '8p9QTSRpEb1A2UxXI91PGiIaLF9wzZuO0mL2zqP5GQSaC'  # Access Secret
-CONSUMER_KEY = 'Dw0re9TrtgYtc8OOQeetOnlxJ'  # API Key
-CONSUMER_SECRET = '3E8FCgp98AqYdMMu0U75o6wyNieaS06KQfmXdZC0ZArxrlfl9m'  # API Secret
+ACCESS_TOKEN = 'HIDDEN'  # Access Token
+ACCESS_SECRET = 'HIDDEN'  # Access Secret
+CONSUMER_KEY = 'HIDDEN'  # API Key
+CONSUMER_SECRET = 'HIDDEN'  # API Secret
 
 oauth = OAuth(ACCESS_TOKEN, ACCESS_SECRET, CONSUMER_KEY, CONSUMER_SECRET)
 
